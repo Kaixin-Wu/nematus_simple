@@ -1,0 +1,90 @@
+WARNING (theano.sandbox.cuda): The cuda backend is deprecated and will be removed in the next release (v0.10).  Please switch to the gpuarray backend. You can get more information about how to switch at this URL:
+ https://github.com/Theano/Theano/wiki/Converting-to-the-new-gpu-back-end%28gpuarray%29
+
+Using gpu device 3: GeForce GTX TITAN X (CNMeM is disabled, cuDNN 5110)
+Loading data
+Building model
+Building sampler
+Building f_init... Done
+Building f_next.. Done
+Building f_log_probs... Done
+Computing gradient... Done
+Building optimizers... Done
+Total compilation time: 256.8s
+Optimization
+Epoch  0 Update  500 Cost  179.466653885 UD  320.270229816 124.89 sents/s 2964.59 words/s
+Epoch  0 Update  1000 Cost  152.804058712 UD  312.831718206 127.86 sents/s 3034.56 words/s
+Epoch  0 Update  1500 Cost  144.89522757 UD  305.003224134 131.15 sents/s 3125.64 words/s
+Epoch  0 Update  2000 Cost  139.192884809 UD  259.846238852 153.94 sents/s 3663.36 words/s
+Epoch  0 Update  2500 Cost  135.261257074 UD  258.74257803 154.59 sents/s 3684.94 words/s
+beg validate
+beg bleu valid
+have script
+Calling external validation script: ./validate_by_bleu.sh
+prefix:../model/model  dev:../data/valid/c.utf8.token.nogen  ref:../data/valid/dev.txt  ref_num:4
+print-identidier:False
+Translating ../data/valid/c.utf8.token.nogen ...
+ERROR (theano.gpuarray): pygpu was configured but could not be imported or is too old (version 0.6 or higher required)
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/site-packages/theano/gpuarray/__init__.py", line 21, in <module>
+    import pygpu
+  File "/usr/lib64/python2.7/site-packages/pygpu-0.6.9-py2.7-linux-x86_64.egg/pygpu/__init__.py", line 7, in <module>
+    from . import gpuarray, elemwise, reduction
+ImportError: libgpuarray.so.2: cannot open shared object file: No such file or directory
+Process Process-1:
+Traceback (most recent call last):
+  File "/usr/lib64/python2.7/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib64/python2.7/multiprocessing/process.py", line 114, in run
+    self._target(*self._args, **self._kwargs)
+  File "../core/nematus/translate.py", line 51, in translate_model
+    param_list = numpy.load(model).files
+  File "/usr/lib64/python2.7/site-packages/numpy/lib/npyio.py", line 370, in load
+    fid = open(file, "rb")
+IOError: [Errno 2] No such file or directory: '../model/model.npz'
+ERROR (theano.gpuarray): pygpu was configured but could not be imported or is too old (version 0.6 or higher required)
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/site-packages/theano/gpuarray/__init__.py", line 21, in <module>
+    import pygpu
+  File "/usr/lib64/python2.7/site-packages/pygpu-0.6.9-py2.7-linux-x86_64.egg/pygpu/__init__.py", line 7, in <module>
+    from . import gpuarray, elemwise, reduction
+ImportError: libgpuarray.so.2: cannot open shared object file: No such file or directory
+Process Process-2:
+Traceback (most recent call last):
+  File "/usr/lib64/python2.7/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib64/python2.7/multiprocessing/process.py", line 114, in run
+    self._target(*self._args, **self._kwargs)
+  File "../core/nematus/translate.py", line 51, in translate_model
+    param_list = numpy.load(model).files
+  File "/usr/lib64/python2.7/site-packages/numpy/lib/npyio.py", line 370, in load
+    fid = open(file, "rb")
+IOError: [Errno 2] No such file or directory: '../model/model.npz'
+Error: translate worker process 12732 crashed with exitcode 1perl NiuTrans-generate-xml-for-mteval.pl -1f ../data/valid/c.utf8.token.nogen.trans.2018-01-05-19:20:09 -tf ../data/valid/dev.txt -rnum 4
+########### SCRIPT ########### SCRIPT ############ SCRIPT ##########
+#                                                                  #
+#   NiuTrans Generate XML (version 1.0.0 Beta)  --www.nlplab.com   #
+#                                                                  #
+########### SCRIPT ########### SCRIPT ############ SCRIPT ##########
+Deal with OOV: process 0 lines.
+TST: 0
+REF AND SRC: 1664
+perl  mteval-v13a.pl  -r ref.xml -s src.xml -t tst.xml |grep 'NIST score'|cut -f 9 -d ' '
+Use of 'Hyphen' in \p{} or \P{} is deprecated because: Supplanted by Line_Break property values; see www.unicode.org/reports/tr14; at mteval-v13a.pl line 948.
+
+
+FATAL ERROR:  translated documents must contain the same # of segments as the source, but
+              document 'doc1' for system 'NiuTrans' contains 0 segments, while
+              the source document contains 1664 segments.
+
+current_bleu: best_bleu:0
+(standard_in) 1: syntax error
+./validate_by_bleu.sh: 第 69 行:[: -eq: 期待一元表达式
+Traceback (most recent call last):
+  File "baseline-ln-config.py", line 80, in <module>
+    dec_depth=1
+  File "../core/nematus/nmt.py", line 1589, in train
+    current_bleu, bleu_history = get_bleu_history("%s_bleu_history" % prefix)
+  File "../core/nematus/nmt.py", line 1587, in get_bleu_history
+    current_bleu = bleu_history[-1]
+IndexError: list index out of range
